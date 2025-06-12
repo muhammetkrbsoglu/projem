@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String    @id @default(cuid())
+  clerkId          String    @unique
+  name             String
+  email            String    @unique
+  role             String    @default("user")
+  messages         Message[]
+  orders           Order[]
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model CategoryGroup {
+  id         String     @id @default(cuid())
+  name       String     @unique
+  categories Category[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+model Category {
+  id         String        @id @default(cuid())
+  name       String        @unique
+  groupId    String
+  group      CategoryGroup @relation(fields: [groupId], references: [id])
+  products   Product[]     @relation("ProductToCategory")
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+model Product {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  stock       Int        @default(0)
+  photoUrl    String
+  categories  Category[] @relation("ProductToCategory")
+  orderItems  OrderItem[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  status     String      @default("pending")
+  total      Float
+  items      OrderItem[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  content   String
+  subject   String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  status    String   @default("unread") // unread, read
+  productId String?  // Optional reference to a product if the message is about a specific product
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
