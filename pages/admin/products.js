@@ -53,9 +53,3 @@ export default function Products() {
     </AdminLayout>
   );
 }
-
-
-// Benzer şekilde pages/admin/categories.js, pages/admin/users.js, pages/admin/messages.js oluşturabilirsiniz.
-// API rotaları da pages/api/admin/{products,categories,users,messages}.js altında CRUD işlemlerini handle edecek biçimde stub implementasyonu yapın.
-//       } else {
-//         alert('Failed to update product');
