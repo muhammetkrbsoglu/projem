@@ -59,22 +59,41 @@ export default async function AdminLayout({ children }) {
               </svg>
               Products
             </Link>
-            <Link 
-              href="/admin/orders" 
+            <Link
+              href="/admin/orders"
               className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg group"
             >
               <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
               Orders
-            </Link>            <Link 
-              href="/admin/categories" 
+            </Link>
+            <Link
+              href="/admin/categories"
               className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg group"
             >
               <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
               Categories
+            </Link>
+            <Link
+              href="/admin/category-groups"
+              className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg group"
+            >
+              <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+              </svg>
+              Category Groups
+            </Link>
+            <Link
+              href="/admin/messages"
+              className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg group"
+            >
+              <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+              </svg>
+              Messages
             </Link>
           </nav>
         </div>

@@ -19,7 +19,18 @@ export async function POST(request) {
   const admin = await prisma.user.findUnique({ where: { clerkId: userId } });
   if (!admin || admin.role !== 'admin') return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   const data = await request.json();
-  const product = await prisma.product.create({ data });
+  const product = await prisma.product.create({
+    data: {
+      name: data.name,
+      price: data.price,
+      stock: data.stock,
+      photoUrl: data.photoUrl,
+      categories: {
+        connect: data.categoryId ? [{ id: data.categoryId }] : [],
+      },
+    },
+    include: { categories: true },
+  });
   return NextResponse.json({ product });
 }
 
@@ -30,7 +41,19 @@ export async function PATCH(request) {
   const admin = await prisma.user.findUnique({ where: { clerkId: userId } });
   if (!admin || admin.role !== 'admin') return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   const { id, ...data } = await request.json();
-  const product = await prisma.product.update({ where: { id }, data });
+  const product = await prisma.product.update({
+    where: { id },
+    data: {
+      name: data.name,
+      price: data.price,
+      stock: data.stock,
+      photoUrl: data.photoUrl,
+      categories: {
+        set: data.categoryId ? [{ id: data.categoryId }] : [],
+      },
+    },
+    include: { categories: true },
+  });
   return NextResponse.json({ product });
 }
 
