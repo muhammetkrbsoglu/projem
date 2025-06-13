@@ -8,6 +8,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, isSignedIn } = useUser();
   const { signOut } = useClerk();
+  const isAdmin = isSignedIn && user?.publicMetadata?.role === 'admin';
 
   const handleSignOut = () => {
     signOut();
@@ -47,7 +48,7 @@ export default function Navbar() {
                 <Link href="/profile" className="hover:text-gray-300">
                   Profile
                 </Link>
-                {isSignedIn && (
+                {isAdmin && (
                   <Link href="/admin" className="text-red-400 hover:text-red-300">
                     Admin Panel
                   </Link>
@@ -171,6 +172,14 @@ export default function Navbar() {
                   >
                     Profile
                   </Link>
+                  {isAdmin && (
+                    <Link
+                      href="/admin"
+                      className="block py-2 text-gray-700 hover:text-black"
+                    >
+                      Admin Panel
+                    </Link>
+                  )}
                   <button
                     onClick={handleSignOut}
                     className="block w-full text-left py-2 text-gray-700 hover:text-black"
