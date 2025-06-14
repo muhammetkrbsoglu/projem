@@ -14,9 +14,9 @@ export default function AdminDashboard() {
     async function fetchData() {
       try {
         const [uRes, pRes, cRes] = await Promise.all([
-          fetch('/api/admin/users'),
-          fetch('/api/products'),
-          fetch('/api/categories'),
+          fetch('/api/admin/users', { credentials: 'include' }),
+          fetch('/api/products', { credentials: 'include' }),
+          fetch('/api/categories', { credentials: 'include' }),
         ]);
 
         if (uRes.status === 401 || pRes.status === 401 || cRes.status === 401) {
