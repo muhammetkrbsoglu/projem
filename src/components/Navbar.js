@@ -47,6 +47,9 @@ export default function Navbar() {
                 <Link href="/profile" className="hover:text-gray-300">
                   Profile
                 </Link>
+                <Link href="/admin" className="hover:text-gray-300">
+                  Admin Dashboard
+                </Link>
                 <button
                   onClick={handleSignOut}
                   className="hover:text-gray-300 cursor-pointer"
@@ -166,6 +169,12 @@ export default function Navbar() {
                     className="block py-2 text-gray-700 hover:text-black"
                   >
                     Profile
+                  </Link>
+                  <Link
+                    href="/admin"
+                    className="block py-2 text-gray-700 hover:text-black"
+                  >
+                    Admin Dashboard
                   </Link>
                   <button
                     onClick={handleSignOut}
