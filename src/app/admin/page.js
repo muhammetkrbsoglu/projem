@@ -24,6 +24,11 @@ export default function AdminDashboard() {
           return;
         }
 
+        if (uRes.status === 403 || pRes.status === 403 || cRes.status === 403) {
+          router.push('/');
+          return;
+        }
+
         const uData = await uRes.json();
         const pData = await pRes.json();
         const cData = await cRes.json();
