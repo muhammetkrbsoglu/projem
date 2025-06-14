@@ -50,15 +50,6 @@ export async function PATCH(request, { params }) {
         { error: 'Unauthorized', details: 'Login required' },
         { status: 401 }
       );
-    }    // All authenticated users can manage products
-    if (!userId) {
-      return NextResponse.json(
-        {
-          error: 'Unauthorized',
-          details: 'Login required to manage products'
-        },
-        { status: 401 }
-      );
     }
 
     const updates = await request.json();
@@ -122,15 +113,6 @@ export async function DELETE(request, { params }) {
     if (!userId) {
       return NextResponse.json(
         { error: 'Unauthorized', details: 'Login required' },
-        { status: 401 }
-      );
-    }    // All authenticated users can manage products
-    if (!userId) {
-      return NextResponse.json(
-        {
-          error: 'Unauthorized',
-          details: 'Login required to manage products'
-        },
         { status: 401 }
       );
     }

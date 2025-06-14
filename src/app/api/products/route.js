@@ -26,7 +26,9 @@ export async function GET(request) {
         ],
       }),
       ...(!includeOutOfStock && { stock: { gt: 0 } }),
-    };    const products = await prisma.product.findMany({
+    };
+
+    const products = await prisma.product.findMany({
       where,
       include: {
         categories: true,
@@ -61,15 +63,6 @@ export async function POST(request) {
     if (!userId) {
       return NextResponse.json(
         { error: 'Unauthorized', details: 'Login required' },
-        { status: 401 }
-      );
-    }    // All authenticated users can manage products
-    if (!userId) {
-      return NextResponse.json(
-        {
-          error: 'Unauthorized',
-          details: 'Login required to manage products'
-        },
         { status: 401 }
       );
     }
