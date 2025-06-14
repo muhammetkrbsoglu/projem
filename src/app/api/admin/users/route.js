@@ -8,6 +8,14 @@ export async function GET() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
+  const currentUser = await prisma.user.findUnique({
+    where: { clerkId: userId }
+  });
+
+  if (!currentUser || currentUser.role !== 'admin') {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  }
+
   try {
     const users = await prisma.user.findMany({
       orderBy: { createdAt: 'desc' }
@@ -23,6 +31,14 @@ export async function PATCH(request) {
   const { userId } = auth();
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const currentUser = await prisma.user.findUnique({
+    where: { clerkId: userId }
+  });
+
+  if (!currentUser || currentUser.role !== 'admin') {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
   const { id, role } = await request.json();
