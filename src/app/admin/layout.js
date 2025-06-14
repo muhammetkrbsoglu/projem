@@ -1,4 +1,4 @@
-import { auth } from '@clerk/nextjs/server';
+import { auth, currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import prisma from '@/lib/prisma';
@@ -8,16 +8,34 @@ async function checkAdminAccess() {
   if (!userId) {
     redirect('/login');
   }
-  
-  const dbUser = await prisma.user.findUnique({ 
+
+  let dbUser = await prisma.user.findUnique({
     where: { clerkId: userId },
-    select: { role: true, name: true }
+    select: { role: true, name: true, email: true }
   });
-  
-  if (!dbUser || dbUser.role !== 'admin') {
+
+  if (!dbUser) {
+    const user = await currentUser();
+    const role = user?.publicMetadata?.role;
+
+    if (role !== 'admin') {
+      redirect('/');
+    }
+
+    // Create the user in the database for future checks
+    dbUser = await prisma.user.create({
+      data: {
+        clerkId: userId,
+        name: user?.fullName || '',
+        email: user?.emailAddresses?.[0]?.emailAddress || '',
+        role: role || 'user'
+      },
+      select: { role: true, name: true }
+    });
+  } else if (dbUser.role !== 'admin') {
     redirect('/');
   }
-  
+
   return dbUser;
 }
 
