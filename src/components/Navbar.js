@@ -48,11 +48,6 @@ export default function Navbar() {
                 <Link href="/profile" className="hover:text-gray-300">
                   Profile
                 </Link>
-                {isAdmin && (
-                  <Link href="/admin" className="text-red-400 hover:text-red-300">
-                    Admin Panel
-                  </Link>
-                )}
                 <button
                   onClick={handleSignOut}
                   className="hover:text-gray-300 cursor-pointer"
@@ -92,12 +87,21 @@ export default function Navbar() {
                 className="text-gray-700 hover:text-black transition-colors"
               >
                 Services
-              </Link>              <Link
+              </Link>
+              <Link
                 href="/contact"
                 className="text-gray-700 hover:text-black transition-colors"
               >
                 Contact
               </Link>
+              {isAdmin && (
+                <Link
+                  href="/admin"
+                  className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                >
+                  Admin Panel
+                </Link>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -175,7 +179,7 @@ export default function Navbar() {
                   {isAdmin && (
                     <Link
                       href="/admin"
-                      className="block py-2 text-gray-700 hover:text-black"
+                      className="block py-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
                     >
                       Admin Panel
                     </Link>
