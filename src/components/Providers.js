@@ -2,7 +2,8 @@
 
 import { ClerkProvider } from '@clerk/nextjs';
 
-export function Providers({ children }) {  return (
+export function Providers({ children }) {
+  return (
     <ClerkProvider
       appearance={{
         baseTheme: undefined,
@@ -10,10 +11,8 @@ export function Providers({ children }) {  return (
           formButtonPrimary: 'bg-black hover:bg-gray-700 text-sm normal-case',
         },
       }}
-      // Using new redirect props instead of deprecated ones
       signInUrl="/login"
       signUpUrl="/register"
-      // Where to go after sign in/up
       fallbackRedirectUrl="/"
     >
       {children}
