@@ -6,9 +6,8 @@ import { useUser, useClerk } from '@clerk/nextjs';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, isSignedIn } = useUser();
+  const { isSignedIn } = useUser();
   const { signOut } = useClerk();
-  const isAdmin = isSignedIn && user?.publicMetadata?.role === 'admin';
 
   const handleSignOut = () => {
     signOut();
@@ -94,14 +93,6 @@ export default function Navbar() {
               >
                 Contact
               </Link>
-              {isAdmin && (
-                <Link
-                  href="/admin"
-                  className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                >
-                  Admin Panel
-                </Link>
-              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -176,14 +167,6 @@ export default function Navbar() {
                   >
                     Profile
                   </Link>
-                  {isAdmin && (
-                    <Link
-                      href="/admin"
-                      className="block py-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                    >
-                      Admin Panel
-                    </Link>
-                  )}
                   <button
                     onClick={handleSignOut}
                     className="block w-full text-left py-2 text-gray-700 hover:text-black"

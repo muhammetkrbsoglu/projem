@@ -70,7 +70,7 @@ export async function POST(req) {
           clerkId: id,
           email,
           name,
-          role: existingUser?.role || (email === 'fowert4753@gmail.com' ? 'admin' : 'user')
+          role: existingUser?.role || 'user'
         },
       });
 
