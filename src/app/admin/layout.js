@@ -113,6 +113,15 @@ export default async function AdminLayout({ children }) {
               </svg>
               Messages
             </Link>
+            <Link
+              href="/admin/settings"
+              className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg group"
+            >
+              <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0a1.724 1.724 0 002.561 1.009c.852-.49 1.97.43 1.48 1.28a1.724 1.724 0 001.009 2.561c.921.3.921 1.603 0 1.902a1.724 1.724 0 00-1.009 2.561c.49.852-.43 1.97-1.28 1.48a1.724 1.724 0 00-2.561 1.009c-.3.921-1.603.921-1.902 0a1.724 1.724 0 00-2.561-1.009c-.852.49-1.97-.43-1.48-1.28a1.724 1.724 0 00-1.009-2.561c-.921-.3-.921-1.603 0-1.902a1.724 1.724 0 001.009-2.561c-.49-.852.43-1.97 1.28-1.48a1.724 1.724 0 002.561-1.009z" />
+              </svg>
+              Settings
+            </Link>
           </nav>
         </div>
       </aside><main className="flex-1 p-8">
