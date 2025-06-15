@@ -1,4 +1,4 @@
-import { auth } from '@clerk/nextjs/server';
+import { auth, clerkClient } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
@@ -51,6 +51,11 @@ export async function PATCH(request) {
       where: { id },
       data: { role }
     });
+
+    await clerkClient.users.updateUserMetadata(user.clerkId, {
+      publicMetadata: { role, isAdmin: role === 'admin' }
+    });
+
     return NextResponse.json(user);
   } catch (error) {
     console.error('Error updating user:', error);

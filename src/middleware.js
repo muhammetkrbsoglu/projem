@@ -23,7 +23,7 @@ export default clerkMiddleware((auth, req) => {
   const { sessionClaims } = auth();
 
   if (req.nextUrl.pathname.startsWith('/admin')) {
-    const isAdmin = sessionClaims?.publicMetadata?.isAdmin;
+    const isAdmin = sessionClaims?.publicMetadata?.role === 'admin';
     if (!isAdmin) {
       return NextResponse.redirect(new URL('/', req.url));
     }

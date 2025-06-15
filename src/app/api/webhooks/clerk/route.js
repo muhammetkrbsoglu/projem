@@ -1,6 +1,7 @@
 import { headers } from 'next/headers';
 import { Webhook } from 'svix';
 import prisma from '@/lib/prisma';
+import { clerkClient } from '@clerk/nextjs/server';
 
 export async function POST(req) {
   // Get the headers
@@ -57,6 +58,8 @@ export async function POST(req) {
         }
       });
 
+      const role = existingUser?.role || 'user';
+
       // Create or update user
       await prisma.user.upsert({
         where: { clerkId: id },
@@ -64,14 +67,18 @@ export async function POST(req) {
           email,
           name,
           // Preserve existing role if user exists
-          role: existingUser?.role || 'user'
+          role
         },
         create: {
           clerkId: id,
           email,
           name,
-          role: existingUser?.role || 'user'
+          role
         },
+      });
+
+      await clerkClient.users.updateUserMetadata(id, {
+        publicMetadata: { role, isAdmin: role === 'admin' }
       });
 
       return new Response('User synchronized successfully', { status: 200 });
