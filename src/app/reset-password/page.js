@@ -2,10 +2,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { use } from 'react';
 import Link from 'next/link';
 
-export default function ResetPassword({ searchParams: searchParamsPromise }) {
+export default function ResetPassword({ searchParams }) {
   const [formData, setFormData] = useState({
     password: '',
     confirmPassword: '',
@@ -13,7 +12,6 @@ export default function ResetPassword({ searchParams: searchParamsPromise }) {
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
   const router = useRouter();
-  const searchParams = use(searchParamsPromise);
   const token = searchParams?.token;
 
   if (!token) {

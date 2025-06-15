@@ -20,7 +20,7 @@ export default function MessagesPage() {
           throw new Error('Failed to fetch messages');
         }
         const data = await res.json();
-        setMessages(data);
+        setMessages(data.data || []);
       } catch (error) {
         console.error('Error:', error);
       } finally {

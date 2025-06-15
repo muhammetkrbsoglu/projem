@@ -2,11 +2,9 @@
 
 import ContactForm from '@/components/ContactForm';
 import { FaWhatsapp, FaFacebook, FaInstagram } from 'react-icons/fa';
-import { use } from 'react';
 import Link from 'next/link';
 
-export default function ContactPage({ searchParams: searchParamsPromise }) {
-  const searchParams = use(searchParamsPromise);
+export default function ContactPage({ searchParams }) {
   const { productId, subject } = searchParams || {};
   
   const socialLinks = [

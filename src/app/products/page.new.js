@@ -13,7 +13,7 @@ const SimpleProductPage = () => {
       try {
         const response = await fetch('/api/products');
         const data = await response.json();
-        setProducts(data);
+        setProducts(data.data || []);
       } catch (error) {
         console.error('Error loading products:', error);
       } finally {
