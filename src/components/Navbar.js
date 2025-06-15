@@ -6,8 +6,7 @@ import { useUser, useClerk } from '@clerk/nextjs';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isSignedIn, user } = useUser();
-  const isAdmin = user?.publicMetadata?.role === 'admin';
+  const { isSignedIn } = useUser();
   const { signOut } = useClerk();
 
   const handleSignOut = () => {
@@ -49,11 +48,6 @@ export default function Navbar() {
                 <Link href="/profile" className="hover:text-gray-300">
                   Profile
                 </Link>
-                {isAdmin && (
-                  <Link href="/admin/dashboard" className="hover:text-gray-300">
-                    Admin Dashboard
-                  </Link>
-                )}
                 <button
                   onClick={handleSignOut}
                   className="hover:text-gray-300 cursor-pointer"
@@ -174,14 +168,6 @@ export default function Navbar() {
                   >
                     Profile
                   </Link>
-                  {isAdmin && (
-                    <Link
-                      href="/admin/dashboard"
-                      className="block py-2 text-gray-700 hover:text-black"
-                    >
-                      Admin Dashboard
-                    </Link>
-                  )}
                   <button
                     onClick={handleSignOut}
                     className="block w-full text-left py-2 text-gray-700 hover:text-black"

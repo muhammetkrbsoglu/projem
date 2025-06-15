@@ -20,13 +20,10 @@ export default clerkMiddleware((auth, req) => {
     return NextResponse.next();
   }
 
+  // Check authentication for non-public routes
   const { sessionClaims } = auth();
-
-  if (req.nextUrl.pathname.startsWith('/admin')) {
-    const isAdmin = sessionClaims?.publicMetadata?.role === 'admin';
-    if (!isAdmin) {
-      return NextResponse.redirect(new URL('/', req.url));
-    }
+  if (!sessionClaims?.sub) {
+    return NextResponse.redirect(new URL('/login', req.url));
   }
 
   return NextResponse.next();

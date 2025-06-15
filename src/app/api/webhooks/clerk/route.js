@@ -78,7 +78,7 @@ export async function POST(req) {
       });
 
       await clerkClient.users.updateUserMetadata(id, {
-        publicMetadata: { role, isAdmin: role === 'admin' }
+        publicMetadata: { role }
       });
 
       return new Response('User synchronized successfully', { status: 200 });
