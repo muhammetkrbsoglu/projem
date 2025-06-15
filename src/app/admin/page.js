@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function AdminDashboard() {
+export default function AdminManagementPage() {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
@@ -54,7 +54,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-8">
-      <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold">Admin Management</h1>
 
       <section>
         <h2 className="text-xl font-semibold mb-2">Users</h2>
