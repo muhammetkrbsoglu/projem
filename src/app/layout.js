@@ -1,10 +1,11 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
+// Removed the Google font import to avoid build failures when the font
+// cannot be fetched from external sources. The application will now use
+// the default sans-serif stack provided by Tailwind CSS.
 
 export const metadata = {
   title: 'Meri App',
@@ -24,7 +25,7 @@ export default function RootLayout({ children }) {
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <html lang="en">
-        <body className={inter.className}>
+        <body className="font-sans">
           <div className="flex flex-col min-h-screen">
             <Navbar />
             <main className="flex-grow">
