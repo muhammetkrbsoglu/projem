@@ -15,7 +15,6 @@ const publicRoutes = createRouteMatcher([
   '/api/products(.*)',
 ]);
 
-const isAdminRoute = createRouteMatcher('/admin(.*)');
 
 export default clerkMiddleware(async (auth, req) => {
   // Public route ise devam et
@@ -24,13 +23,6 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   const { sessionClaims } = auth();
-
-  if (req.nextUrl.pathname.startsWith('/admin')) {
-    const isAdmin = sessionClaims?.publicMetadata?.role === 'admin';
-    if (!isAdmin) {
-      return NextResponse.redirect(new URL('/', req.url));
-    }
-  }
 
   return NextResponse.next();
 });
