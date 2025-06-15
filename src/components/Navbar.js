@@ -36,10 +36,10 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-4">
             {!isSignedIn ? (
               <>
-                <Link href="/login" className="hover:text-gray-300">
+                <Link href="/sign-in" className="hover:text-gray-300">
                   Login
                 </Link>
-                <Link href="/register" className="hover:text-gray-300">
+                <Link href="/sign-up" className="hover:text-gray-300">
                   Register
                 </Link>
               </>
@@ -148,13 +148,13 @@ export default function Navbar() {
               {!isSignedIn ? (
                 <>
                   <Link
-                    href="/login"
+                    href="/sign-in"
                     className="block py-2 text-gray-700 hover:text-black"
                   >
                     Login
                   </Link>
                   <Link
-                    href="/register"
+                    href="/sign-up"
                     className="block py-2 text-gray-700 hover:text-black"
                   >
                     Register

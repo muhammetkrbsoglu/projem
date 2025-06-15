@@ -19,7 +19,7 @@ export default function ContactForm({ productId, initialSubject }) {
     e.preventDefault();
 
     if (!isSignedIn) {
-      router.push('/login');
+      router.push('/sign-in');
       return;
     }
 
@@ -38,7 +38,7 @@ export default function ContactForm({ productId, initialSubject }) {
       });
 
       if (res.status === 401) {
-        router.push('/login');
+        router.push('/sign-in');
         return;
       }
 

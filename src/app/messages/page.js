@@ -14,7 +14,7 @@ export default function MessagesPage() {
         const res = await fetch('/api/messages');
         if (!res.ok) {
           if (res.status === 401) {
-            router.push('/login');
+            router.push('/sign-in');
             return;
           }
           throw new Error('Failed to fetch messages');

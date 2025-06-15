@@ -48,7 +48,7 @@ export default function ResetPassword({ searchParams }) {
 
       setStatus('success');
       setTimeout(() => {
-        router.push('/login?reset=success');
+        router.push('/sign-in?reset=success');
       }, 3000);
     } catch (err) {
       setError(err.message);

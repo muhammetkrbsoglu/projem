@@ -22,7 +22,6 @@ export default function RootLayout({ children }) {
           footerActionLink: 'text-rose-500 hover:text-rose-600'
         }
       }}
-      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <html lang="en">
         <body className="font-sans">
