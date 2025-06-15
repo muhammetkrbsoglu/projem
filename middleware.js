@@ -15,12 +15,12 @@ const publicRoutes = createRouteMatcher([
   '/api/products(.*)',
 ]);
 
-export default clerkMiddleware(async (auth, req) => {
+export default clerkMiddleware((auth, req) => {
   if (publicRoutes(req)) {
     return NextResponse.next();
   }
 
-  const { userId, sessionClaims } = await auth().protect();
+  const { sessionClaims } = auth();
 
   if (req.nextUrl.pathname.startsWith('/admin')) {
     const isAdmin = sessionClaims?.publicMetadata?.isAdmin;
@@ -33,8 +33,5 @@ export default clerkMiddleware(async (auth, req) => {
 });
 
 export const config = {
-  matcher: [
-    '/((?!_next/static|_next/image|favicon\\.ico|.+\\..+).*)',
-    '/(api|trpc)(.*)'
-  ]
+  matcher: '/:path*',
 };
