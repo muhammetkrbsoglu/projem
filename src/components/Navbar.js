@@ -47,7 +47,7 @@ export default function Navbar() {
                 <Link href="/profile" className="hover:text-gray-300">
                   Profile
                 </Link>
-                <Link href="/admin" className="hover:text-gray-300">
+                <Link href="/admin/dashboard" className="hover:text-gray-300">
                   Admin Dashboard
                 </Link>
                 <button
@@ -171,7 +171,7 @@ export default function Navbar() {
                     Profile
                   </Link>
                   <Link
-                    href="/admin"
+                    href="/admin/dashboard"
                     className="block py-2 text-gray-700 hover:text-black"
                   >
                     Admin Dashboard
