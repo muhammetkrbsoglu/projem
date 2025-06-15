@@ -13,8 +13,8 @@ export default function RegisterPage() {
           },
         }}
         routing="path"
-        path="/register"
-        signInUrl="/login"
+        path="/sign-up"
+        signInUrl="/sign-in"
         afterSignUpUrl="/"
       />
     </div>
