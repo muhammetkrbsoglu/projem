@@ -21,7 +21,7 @@ export default function AdminDashboard() {
             router.push('/');
             return;
           }
-          throw new Error('Failed to fetch');
+          throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
         }
         const data = await res.json();
         setStats(data);
