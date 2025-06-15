@@ -23,19 +23,12 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.next();
   }
 
-  const { sessionClaims, userId, redirectToSignIn } = await auth();
+  const { sessionClaims } = auth();
 
-  // Giriş yapılmamışsa giriş sayfasına yönlendir
-  if (!userId) {
-    return redirectToSignIn();
-  }
-
-  // Admin route kontrolü
-  if (isAdminRoute(req)) {
+  if (req.nextUrl.pathname.startsWith('/admin')) {
     const isAdmin = sessionClaims?.publicMetadata?.role === 'admin';
     if (!isAdmin) {
-      const url = new URL('/', req.url);
-      return NextResponse.redirect(url);
+      return NextResponse.redirect(new URL('/', req.url));
     }
   }
 
