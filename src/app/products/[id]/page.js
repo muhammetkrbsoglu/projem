@@ -22,7 +22,7 @@ export default function ProductPage() {
         throw new Error('Product not found');
       }
       const data = await response.json();
-      setProduct(data);
+      setProduct(data.data);
     } catch (error) {
       setError(error.message);
     } finally {
