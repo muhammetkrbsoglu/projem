@@ -1,6 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
+// Public route'ları tanımla
 const publicRoutes = createRouteMatcher([
   '/',
   '/sign-in(.*)',
@@ -15,10 +16,26 @@ const publicRoutes = createRouteMatcher([
   '/api/products(.*)',
 ]);
 
+// Admin route'ları tanımla
+const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
+
 export default clerkMiddleware(async (auth, req) => {
-  // Public route ise devam et
+  const { userId, sessionClaims, redirectToSignIn } = await auth();
+
+  // Eğer public route ise devam et
   if (publicRoutes(req)) {
     return NextResponse.next();
+  }
+
+  // Eğer admin route ise ve user admin değilse anasayfaya yönlendir
+  if (isAdminRoute(req) && sessionClaims?.metadata?.role !== "admin") {
+    const url = new URL("/", req.url);
+    return NextResponse.redirect(url);
+  }
+
+  // Eğer giriş yapmamışsa ve public route değilse buraya düşer
+  if (!userId) {
+    return redirectToSignIn();
   }
 
   return NextResponse.next();
@@ -26,23 +43,4 @@ export default clerkMiddleware(async (auth, req) => {
 
 export const config = {
   matcher: '/:path*',
-
-  const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
-
-export default clerkMiddleware(async (auth, req) => {
-  const { userId, redirectToSignIn } = await auth();
-
-  if (
-    isAdminRoute(req) &&
-    (await auth()).sessionClaims?.metadata?.role !== "admin"
-  ) {
-    const url = new URL("/", req.url);
-    return NextResponse.redirect(url);
-  }
-
-  if (!userId && !isPublicRoute(req)) {
-    // Add custom logic to run before redirecting
-  }
-})
-
 };
