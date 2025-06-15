@@ -15,17 +15,27 @@ const publicRoutes = createRouteMatcher([
   '/api/products(.*)',
 ]);
 
-export default clerkMiddleware((auth, req) => {
+const isAdminRoute = createRouteMatcher('/admin(.*)');
+
+export default clerkMiddleware(async (auth, req) => {
+  // Public route ise devam et
   if (publicRoutes(req)) {
     return NextResponse.next();
   }
 
-  const { sessionClaims } = auth();
+  const { sessionClaims, userId, redirectToSignIn } = await auth();
 
-  if (req.nextUrl.pathname.startsWith('/admin')) {
+  // Giriş yapılmamışsa giriş sayfasına yönlendir
+  if (!userId) {
+    return redirectToSignIn();
+  }
+
+  // Admin route kontrolü
+  if (isAdminRoute(req)) {
     const isAdmin = sessionClaims?.publicMetadata?.role === 'admin';
     if (!isAdmin) {
-      return NextResponse.redirect(new URL('/', req.url));
+      const url = new URL('/', req.url);
+      return NextResponse.redirect(url);
     }
   }
 
