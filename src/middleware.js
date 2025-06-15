@@ -20,7 +20,7 @@ export default clerkMiddleware((auth, req) => {
     return NextResponse.next();
   }
 
-  auth();
+
   return NextResponse.next();
 });
 
