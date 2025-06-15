@@ -26,4 +26,23 @@ export default clerkMiddleware(async (auth, req) => {
 
 export const config = {
   matcher: '/:path*',
+
+  const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
+
+export default clerkMiddleware(async (auth, req) => {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (
+    isAdminRoute(req) &&
+    (await auth()).sessionClaims?.metadata?.role !== "admin"
+  ) {
+    const url = new URL("/", req.url);
+    return NextResponse.redirect(url);
+  }
+
+  if (!userId && !isPublicRoute(req)) {
+    // Add custom logic to run before redirecting
+  }
+})
+
 };
