@@ -8,23 +8,35 @@ export default function AdminManagementPage() {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [messages, setMessages] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [uRes, pRes, cRes] = await Promise.all([
+        const [uRes, pRes, cRes, mRes] = await Promise.all([
           fetch('/api/admin/users', { credentials: 'include' }),
           fetch('/api/products', { credentials: 'include' }),
           fetch('/api/categories', { credentials: 'include' }),
+          fetch('/api/admin/messages', { credentials: 'include' }),
         ]);
 
-        if (uRes.status === 401 || pRes.status === 401 || cRes.status === 401) {
+        if (
+          uRes.status === 401 ||
+          pRes.status === 401 ||
+          cRes.status === 401 ||
+          mRes.status === 401
+        ) {
           router.push('/login');
           return;
         }
 
-        if (uRes.status === 403 || pRes.status === 403 || cRes.status === 403) {
+        if (
+          uRes.status === 403 ||
+          pRes.status === 403 ||
+          cRes.status === 403 ||
+          mRes.status === 403
+        ) {
           router.push('/');
           return;
         }
@@ -32,9 +44,11 @@ export default function AdminManagementPage() {
         const uData = await uRes.json();
         const pData = await pRes.json();
         const cData = await cRes.json();
+        const mData = await mRes.json();
         setUsers(uData);
         setProducts(pData.data || []);
         setCategories(cData || []);
+        setMessages(mData);
       } catch (err) {
         console.error('Error loading admin data:', err);
       } finally {
@@ -95,6 +109,21 @@ export default function AdminManagementPage() {
           {categories.map((cat) => (
             <li key={cat.id} className="border px-2 py-1 rounded">
               {cat.name}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2 className="text-xl font-semibold mb-2">Messages</h2>
+        <ul className="space-y-1">
+          {messages.map((msg) => (
+            <li key={msg.id} className="border px-2 py-1 rounded">
+              <div className="font-semibold">{msg.subject || 'No Subject'}</div>
+              <div className="text-sm text-gray-600">
+                From: {msg.user.name} ({msg.user.email})
+              </div>
+              <p className="text-gray-700">{msg.content}</p>
             </li>
           ))}
         </ul>
