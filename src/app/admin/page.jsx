@@ -1,9 +1,8 @@
 import { clerkClient } from "@clerk/nextjs/server";
-import { removeRole, setRole } from "./actions";
+import { removeRole, setRole } from "./action";
 
 export default async function Admin() {
   const client = await clerkClient();
-
   const users = (await client.users.getUserList()).data;
 
   return (
